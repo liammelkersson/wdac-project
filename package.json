@@ -1,0 +1,14 @@
+{
+  "name": "wdac-project",
+  "version": "1.0.0",
+  "description": "Final project in web dev - advanced concepts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liam, linus, elias",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
