@@ -1,18 +1,20 @@
+// ========== LOADING PACKAGES ==========
 const express = require("express");
 const fs = require('fs');
+
+// ========== OTHER VARIABLES ==========
 const app = express();
 const PORT = 3000;
 
 app.use("/", express.static("public"));
 
-// GET -----------------------------------------------
+// ========== DEFINING ROUTES ==========
 app.get("/", (req, res) => {
   res.send("Welcome to the REST API!");
 });
 
 app.get("/api/shops", (req, res) => {
   res.sendFile("/index.html");
-  //res.send ("welcome to the REST API")
 });
 
 app.get("/api/stores", (req, res) => {
@@ -30,6 +32,7 @@ app.get("/api/stores", (req, res) => {
   });
 });
 
+// ========== RUNS APP & LISTENS ON PORT:  ==========
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
   });
