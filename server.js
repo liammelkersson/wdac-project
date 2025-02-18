@@ -7,12 +7,12 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+app.use("/", express.static("public"));
 
-app.get("/api/shops", (req,res)=>{
-
-res.sendFile("/index.html")
-//res.send ("welcome to the REST API")
-})
+app.get("/api/shops", (req, res) => {
+  res.sendFile("/index.html");
+  //res.send ("welcome to the REST API")
+});
 
 //APP GET REQ
 
