@@ -6,6 +6,7 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
+// define static directory "public"
 app.use("/", express.static("public"));
 
 // ========== DEFINING ROUTES ==========
