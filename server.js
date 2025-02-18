@@ -17,7 +17,7 @@ app.get("/api/shops", (req, res) => {
 
 app.get("/api/stores", (req, res) => {
   // Here you would normally fetch items from a database
-  fs.readFile(`/public/stores.json`, `utf8`, (err, data) => {
+  fs.readFile(__dirname + `/public/stores.json`, `utf8`, (err, data) => {
     if (err) {
       return res.status(500).json({ error: `Failed to read file` });
     }
