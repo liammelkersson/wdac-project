@@ -1,25 +1,23 @@
 const express = require("express");
+const fs = require('fs');
 const app = express();
 const PORT = 3000;
+
+app.use("/", express.static("public"));
+
+// GET -----------------------------------------------
 app.get("/", (req, res) => {
   res.send("Welcome to the REST API!");
 });
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
-app.use("/", express.static("public"));
 
 app.get("/api/shops", (req, res) => {
   res.sendFile("/index.html");
   //res.send ("welcome to the REST API")
 });
 
-//APP GET REQ
-
-// GET -----------------------------------------------
-app.get("/api/shops", (req, res) => {
+app.get("/api/stores", (req, res) => {
   // Here you would normally fetch items from a database
-  fs.readFile(`./stores.json`, `utf8`, (err, data) => {
+  fs.readFile(`/public/stores.json`, `utf8`, (err, data) => {
     if (err) {
       return res.status(500).json({ error: `Failed to read file` });
     }
@@ -31,3 +29,7 @@ app.get("/api/shops", (req, res) => {
     }
   });
 });
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
