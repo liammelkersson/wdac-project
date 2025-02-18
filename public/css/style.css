@@ -1,0 +1,10 @@
+/* CSS Variables */
+:root {
+    --main-bg-color: black;
+    --main-text-color: white;
+  }
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+}
