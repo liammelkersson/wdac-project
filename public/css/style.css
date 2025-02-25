@@ -1,102 +1,147 @@
 /* CSS Variables */
 :root {
-    --main-bg-color: rgba(0, 0, 0, 0.8);
-    --main-text-color: white;
-  }
+  --main-bg-color: rgba(0, 0, 0, 0.8);
+  --main-text-color: white;
+}
 
-  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Love+Ya+Like+A+Sister&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Love+Ya+Like+A+Sister&display=swap");
 
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
-    font-family: "Inter", Arial, Helvetica, sans-serif;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 30px ;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 30px;
 }
 
 .links {
-    display: flex;
-    padding: 30px;
-    align-items: center;
+  display: flex;
+  padding: 30px;
+  align-items: center;
 }
 
-.links>a {
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: black;
+.links > a {
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
 }
 
 .logo {
-    width: 100px;
+  width: 100px;
 }
 
 .hero {
-    color: white ;
-    display: flex;
-    background-image: url(../img/jkpg.jpg);
-    background-size: cover;
-    background-position: center;
-    padding: 100px ;
+  color: white;
+  display: flex;
+  background-image: url(../img/jkpg.jpg);
+  background-size: cover;
+  background-position: center;
+  padding: 100px;
 
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    height: 30vh;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 30vh;
+}
+#featured {
+  display: flex;
+  width: 100%;
+  height: width/2;
+}
+
+.featuredClass {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#featuredStore1,
+#featuredStore2,
+#featuredStore3 {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 40px;
+  margin-top: 20px;
+}
+
+#featuredStore1::before,
+#featuredStore2::before,
+#featuredStore3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.5);
+}
+
+#featuredStore1 {
+  background-image: url(../img/stores/vipTorpa.png);
+}
+#featuredStore2 {
+  background-image: url(../img/stores/fictionPerscription.jpg);
+}
+#featuredStore3 {
+  background-image: url(../img/stores/pleasure.png);
 }
 h1 {
-    font-size: 150px;
+  font-size: 150px;
 }
 
 #StoresSection {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-left: 10%;
-    padding-right: 10%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .storesH2 {
-text-align: center;
-font-size: 75px;
+  text-align: center;
+  font-size: 75px;
 }
 
 #listOfStores {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .storeDiv {
-    display: flex;
-    flex-direction:row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .store {
-    padding: 25px;
-    border: 2px solid #fea729;
-    border-radius: 25px;
-    margin: 10px;
-    background-color: #f2f2f2;
-    color: #444444;
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center
+  padding: 25px;
+  border: 2px solid #fea729;
+  border-radius: 25px;
+  margin: 10px;
+  background-color: #f2f2f2;
+  color: #444444;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
