@@ -14,17 +14,16 @@ fetch("http://localhost:3000/api/stores")
 
     data.forEach((shop) => {
       let newLink = document.createElement("a");
-      let shopUrl = shop.url.startsWith("http") ? shop.url : `https://${shop.url}`;
-      newLink.href = shopUrl;
-      newLink.target = "_blank"; // opens in new tab
-      newLink.style.textDecoration = "none"; // removes underline
-      newLink.style.color = "inherit"; // keeps default text color
+      newLink.href = shop.url; // Set the link
+      newLink.target = "_blank"; // Open in new tab (optional)
+      newLink.style.textDecoration = "none"; // Optional: remove underline
+      newLink.style.color = "inherit"; // Optional: keep default text color
 
       let newLi = document.createElement("div");
       newLi.innerText = shop.name;
       newLi.setAttribute("class", "store");
 
-      newLink.appendChild(newLi); // wraps the div inside the anchor
+      newLink.appendChild(newLi); // Wrap the div inside the anchor
       newUl.appendChild(newLink);
     });
   });
