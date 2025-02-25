@@ -13,10 +13,10 @@ app.use("/", express.static("public"));
 app.get("/", (req, res) => {
   res.send("Welcome to the REST API!");
 });
-
-app.get("/api/shops", (req, res) => {
-  res.sendFile("/index.html");
-});
+// är detta nödvändigt?
+// app.get("/api/stores", (req, res) => {
+//   res.sendFile("/index.html");
+// });
 
 app.get("/api/stores", (req, res) => {
   // Here you would normally fetch items from a database
