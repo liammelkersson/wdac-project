@@ -211,22 +211,22 @@
   },
   {
     "name": "Galleri 701 ramcenter",
-    "url": "galleri701-ram.se",
+    "url": "https://galleri701-ram.se",
     "district": null
   },
   {
     "name": "Gant",
-    "url": "gant.se/stores?lat=57.78261370000001&long=14.1617876&postalCode=j%C3%B6nk%C3%B6ping&radius=10.0",
+    "url": "https://gant.se/stores?lat=57.78261370000001&long=14.1617876&postalCode=j%C3%B6nk%C3%B6ping&radius=10.0",
     "district": "Atollen"
   },
   {
     "name": "Gåvan",
-    "url": "gavanjonkoping.se",
+    "url": "https://gavanjonkoping.se",
     "district": "Öster"
   },
   {
     "name": "Gina Tricot",
-    "url": "ginatricot.com/se/find-store",
+    "url": "https://ginatricot.com/se/find-store",
     "district": "Öster"
   },
   {

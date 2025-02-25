@@ -58,3 +58,45 @@ nav {
 h1 {
     font-size: 150px;
 }
+
+#StoresSection {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.storesH2 {
+text-align: center;
+font-size: 75px;
+}
+
+#listOfStores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.storeDiv {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.store {
+    padding: 25px;
+    border: 2px solid #fea729;
+    border-radius: 25px;
+    margin: 10px;
+    background-color: #f2f2f2;
+    color: #444444;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
