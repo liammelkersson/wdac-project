@@ -12,3 +12,10 @@ EXPOSE 3000
 # Define the command for starting our web application
 # inside the container (often app.js)
 CMD [ "node", "server.js"]
+
+# DATABASE
+FROM postgres:latest
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD 12345
+ENV POSTGRES_DB postgres
+EXPOSE 5432
