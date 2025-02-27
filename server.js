@@ -12,32 +12,24 @@ const port = 3000;
 app.use(cors());
 
 // define static directory "public"
-app.use("/", express.static("public"));
+// app.use("/", express.static("public"));
+// app.use("/admin", express.static("public"));
+// app.use("/stores", express.static("public"));
+
+app.use(express.static("public"));
 
 // ========== DEFINING ROUTES ==========
-app.get("/", (req, res) => {
-  res.send("Welcome to the REST API!");
+app.get("/stores", (req, res) => {
+    res.sendFile(__dirname + "/public/stores.html");
 });
-// är detta nödvändigt?
-// app.get("/api/stores", (req, res) => {
-//   res.sendFile("/index.html");
-// });
 
-//läser direkt stores.json filen
-// app.get("/api/stores", (req, res) => {
-//   // Here you would normally fetch items from a database
-//   fs.readFile(__dirname + `/public/stores.json`, `utf8`, (err, data) => {
-//     if (err) {
-//       return res.status(500).json({ error: `Failed to read file` });
-//     }
-//     try {
-//       const jsonData = JSON.parse(data);
-//       res.json(jsonData);
-//     } catch (parseError) {
-//       res.status(500).json({ error: `Failed to parse JSON data` });
-//     }
-//   });
-// });
+app.get("/admin", (req, res) => {
+    res.sendFile(__dirname + "/public/admin.html");
+});
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+});
 
 app.get('/api/stores', async (req, res) => {
     try {
@@ -49,26 +41,22 @@ app.get('/api/stores', async (req, res) => {
     }
 });
 
-// ========== RUNS APP & LISTENS ON PORT:  ==========
-// app.listen(PORT, () => {
-//     console.log(`Server running at http://localhost:${PORT}`);
-//   });
-
+// ========== RUNS SERVER & LISTENS ON PORT:  ==========
 async function startServer() {
     try {
         await db.connect();
         app.listen(port, () => {
             console.log(`Server running at http://localhost:${port}`);
         });
+        //error handling
     } catch (err) {
         console.error('Failed to start server:', err);
         process.exit(1);
     }
 }
+startServer();
 
-  startServer();
-
-// Handle shutdown gracefully
+// Handle shutdown gracefully????
 process.on('SIGTERM', async () => {
     await db.disconnect();
     process.exit(0);
