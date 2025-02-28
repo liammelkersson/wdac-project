@@ -64,6 +64,19 @@ app.put('/api/stores/:id', async (req, res) => {
     }
 });
 
+// creating new store
+app.post('/api/stores', async (req, res) => {
+    try {
+        const { name, url, district } = req.body;
+        const query = 'INSERT INTO stores (name, url, district) VALUES ($1, $2, $3) RETURNING *';
+        const result = await db.client.query(query, [name, url, district]);
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error creating store:', err);
+        res.status(500).json({ error: 'Failed to create store' });
+    }
+});
+
 // ========== RUNS SERVER & LISTENS ON PORT:  ==========
 async function startServer() {
     try {

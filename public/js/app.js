@@ -15,6 +15,23 @@ function updateStore(id, formData) {
   });
 }
 
+// Function to handle store creation
+function createStore(formData) {
+  return fetch('http://localhost:3000/api/stores', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to create store');
+    }
+    return response.json();
+  });
+}
+
 fetch("http://localhost:3000/api/stores")
   .then((response) => {
     if (!response.ok) {
@@ -25,6 +42,92 @@ fetch("http://localhost:3000/api/stores")
   .then((data) => {
     console.log("GET response data:", data);
     let list = document.querySelector("#listOfStores");
+
+    // Create add store button and form
+    let addContainer = document.createElement("div");
+    addContainer.style.marginBottom = "20px";
+
+    let addButton = document.createElement("button");
+    addButton.innerText = "Add New Store";
+    addButton.style.padding = "8px 16px";
+    addButton.style.backgroundColor = "#4CAF50";
+    addButton.style.color = "white";
+    addButton.style.border = "none";
+    addButton.style.borderRadius = "5px";
+    addButton.style.cursor = "pointer";
+    addButton.style.marginBottom = "10px";
+
+    let addForm = document.createElement("form");
+    addForm.style.display = "none";
+    addForm.style.gap = "10px";
+    addForm.style.flexDirection = "column";
+    addForm.style.maxWidth = "300px";
+    addForm.innerHTML = `
+      <input type="text" name="name" placeholder="Store Name" required>
+      <input type="url" name="url" placeholder="Store URL" required>
+      <input type="text" name="district" placeholder="District" required>
+      <div style="display: flex; gap: 10px;">
+        <button type="submit">Save</button>
+        <button type="button" class="cancel">Cancel</button>
+      </div>
+    `;
+
+    addButton.addEventListener("click", () => {
+      addForm.style.display = "flex";
+      addButton.style.display = "none";
+    });
+
+    addForm.querySelector(".cancel").addEventListener("click", () => {
+      addForm.style.display = "none";
+      addButton.style.display = "block";
+      addForm.reset();
+    });
+
+    addForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = {
+        name: addForm.name.value,
+        url: addForm.url.value,
+        district: addForm.district.value
+      };
+
+      createStore(formData)
+        .then((newStore) => {
+          // Create new store element
+          let storeContainer = document.createElement("div");
+          storeContainer.style.display = "flex";
+          storeContainer.style.alignItems = "center";
+          storeContainer.style.gap = "10px";
+
+          let newLink = document.createElement("a");
+          newLink.href = newStore.url;
+          newLink.target = "_blank";
+          newLink.style.textDecoration = "none";
+          newLink.style.color = "inherit";
+
+          let newLi = document.createElement("div");
+          newLi.innerText = newStore.name;
+          newLi.setAttribute("class", "store");
+
+          newLink.appendChild(newLi);
+          storeContainer.appendChild(newLink);
+          newUl.insertBefore(storeContainer, newUl.firstChild);
+
+          // Reset and hide form
+          addForm.reset();
+          addForm.style.display = "none";
+          addButton.style.display = "block";
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Failed to create store");
+        });
+    });
+
+    addContainer.appendChild(addButton);
+    addContainer.appendChild(addForm);
+    list.appendChild(addContainer);
+
     let newUl = document.createElement("div");
     newUl.setAttribute("class", "storeDiv");
     list.appendChild(newUl);
