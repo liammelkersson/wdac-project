@@ -1,3 +1,20 @@
+// Function to handle store updates
+function updateStore(id, formData) {
+  return fetch(`http://localhost:3000/api/stores/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to update store');
+    }
+    return response.json();
+  });
+}
+
 fetch("http://localhost:3000/api/stores")
   .then((response) => {
     if (!response.ok) {
@@ -28,6 +45,61 @@ fetch("http://localhost:3000/api/stores")
       newLi.innerText = shop.name;
       newLi.setAttribute("class", "store");
 
+      // Create edit button
+      let editButton = document.createElement("button");
+      editButton.innerText = "edit";
+      editButton.style.padding = "5px 10px";
+      editButton.style.backgroundColor = "#4CAF50";
+      editButton.style.color = "white";
+      editButton.style.border = "none";
+      editButton.style.borderRadius = "5px";
+      editButton.style.cursor = "pointer";
+      editButton.style.marginRight = "5px";
+
+      // Create edit form
+      let editForm = document.createElement("form");
+      editForm.style.display = "none";
+      editForm.style.marginTop = "10px";
+      editForm.style.gap = "10px";
+      editForm.innerHTML = `
+        <input type="text" name="name" value="${shop.name}" required>
+        <input type="url" name="url" value="${shop.url}" required>
+        <input type="text" name="district" value="${shop.district}" required>
+        <button type="submit">Save</button>
+        <button type="button" class="cancel">Cancel</button>
+      `;
+
+      editButton.addEventListener("click", () => {
+        editForm.style.display = "flex";
+        storeContainer.style.flexDirection = "column";
+      });
+
+      editForm.querySelector(".cancel").addEventListener("click", () => {
+        editForm.style.display = "none";
+        storeContainer.style.flexDirection = "row";
+      });
+
+      editForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = {
+          name: editForm.name.value,
+          url: editForm.url.value,
+          district: editForm.district.value
+        };
+
+        updateStore(shop.id, formData)
+          .then(() => {
+            newLi.innerText = formData.name;
+            newLink.href = formData.url;
+            editForm.style.display = "none";
+            storeContainer.style.flexDirection = "row";
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            alert("Failed to update store");
+          });
+      });
+
       let deleteButton = document.createElement("button");
       deleteButton.innerText = "delete";
       deleteButton.style.padding = "5px 10px";
@@ -55,7 +127,9 @@ fetch("http://localhost:3000/api/stores")
 
       newLink.appendChild(newLi);
       storeContainer.appendChild(newLink);
+      storeContainer.appendChild(editButton);
       storeContainer.appendChild(deleteButton);
+      storeContainer.appendChild(editForm);
       newUl.appendChild(storeContainer);
     });
   });

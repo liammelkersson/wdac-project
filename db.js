@@ -110,6 +110,16 @@ class Database {
         }
     }
 
+    async updateStore(id, { name, url, district }) {
+        try {
+            const query = 'UPDATE stores SET name = $1, url = $2, district = $3 WHERE id = $4';
+            await this.client.query(query, [name, url, district, id]);
+        } catch (err) {
+            console.error('Error updating store:', err.stack);
+            throw err;
+        }
+    }
+
     async disconnect() {
         try {
             await this.client.end();

@@ -13,6 +13,8 @@ const port = 3000;
 app.use(cors());
 // serves static files from public directory
 app.use(express.static("public"));
+// parse JSON bodies
+app.use(express.json());
 
 // ========== DEFINING ROUTES/END-POINTS ==========
 app.get("/", (req, res) => {
@@ -46,6 +48,19 @@ app.delete('/api/stores/:id', async (req, res) => {
     } catch (err) {
         console.error('Error deleting store:', err);
         res.status(500).json({ error: 'Failed to delete store' });
+    }
+});
+
+// updating store information
+app.put('/api/stores/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { name, url, district } = req.body;
+        await db.updateStore(id, { name, url, district });
+        res.status(200).json({ message: 'Store updated successfully' });
+    } catch (err) {
+        console.error('Error updating store:', err);
+        res.status(500).json({ error: 'Failed to update store' });
     }
 });
 
