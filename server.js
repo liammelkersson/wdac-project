@@ -8,27 +8,23 @@ const db = require('./db');
 const app = express();
 const port = 3000;
 
-// Enable CORS for all routes
+// ========== MIDDLEWARE ==========
+// enables CORS for all routes
 app.use(cors());
-
-// define static directory "public"
-// app.use("/", express.static("public"));
-// app.use("/admin", express.static("public"));
-// app.use("/stores", express.static("public"));
-
+// serves static files from public directory
 app.use(express.static("public"));
 
 // ========== DEFINING ROUTES ==========
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+});
+
 app.get("/stores", (req, res) => {
     res.sendFile(__dirname + "/public/stores.html");
 });
 
 app.get("/admin", (req, res) => {
     res.sendFile(__dirname + "/public/admin.html");
-});
-
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get('/api/stores', async (req, res) => {
