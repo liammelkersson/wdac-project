@@ -100,6 +100,16 @@ class Database {
         }
     }
 
+    async deleteStore(id) {
+        try {
+            const query = 'DELETE FROM stores WHERE id = $1';
+            await this.client.query(query, [id]);
+        } catch (err) {
+            console.error('Error deleting store:', err.stack);
+            throw err;
+        }
+    }
+
     async disconnect() {
         try {
             await this.client.end();

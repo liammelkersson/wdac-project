@@ -14,7 +14,7 @@ app.use(cors());
 // serves static files from public directory
 app.use(express.static("public"));
 
-// ========== DEFINING ROUTES ==========
+// ========== DEFINING ROUTES/END-POINTS ==========
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
@@ -34,6 +34,18 @@ app.get('/api/stores', async (req, res) => {
     } catch (err) {
         console.error('Error fetching stores:', err);
         res.status(500).json({ error: 'Failed to fetch stores' });
+    }
+});
+
+//deleting individual stores
+app.delete('/api/stores/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await db.deleteStore(id);
+        res.status(200).json({ message: 'Store deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting store:', err);
+        res.status(500).json({ error: 'Failed to delete store' });
     }
 });
 
