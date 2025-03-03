@@ -174,3 +174,11 @@ h1 {
   align-items: center;
   justify-content: center;
 }
+
+.switch {
+  display: none;
+}
+
+#toggleSwitch:checked ~ .switch {
+  display: block;
+}
