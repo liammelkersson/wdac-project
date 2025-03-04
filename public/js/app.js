@@ -61,41 +61,62 @@ fetch("http://localhost:3000/api/stores")
       <button type="button" class="cancel">Cancel</button>
     `;
 
-    addButton.addEventListener("click", () => {
-      addForm.style.display = "block";
-      addButton.style.display = "none";
-    });
-
-    addForm.querySelector(".cancel").addEventListener("click", () => {
-      addForm.style.display = "none";
-      addButton.style.display = "block";
-      addForm.reset();
-    });
-
-    addForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = {
-        name: addForm.name.value,
-        url: addForm.url.value,
-        district: addForm.district.value,
-      };
-
-      createStore(formData)
-        .then((newStore) => {
-          createStoreElement(newStore, newUl);
-          addForm.reset();
-          addForm.style.display = "none";
-          addButton.style.display = "block";
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("Failed to create store");
-        });
-    });
-
     addContainer.appendChild(addButton);
     addContainer.appendChild(addForm);
     list.appendChild(addContainer);
+
+    // Create sorting controls
+    let sortingContainer = document.createElement("div");
+    sortingContainer.style.marginBottom = "20px";
+    sortingContainer.style.display = "flex";
+    sortingContainer.style.gap = "10px";
+
+    let nameSort = document.createElement("select");
+    nameSort.innerHTML = `
+      <option value="">Sort by Name</option>
+      <option value="asc">A to Z</option>
+      <option value="desc">Z to A</option>
+    `;
+
+    let districtSort = document.createElement("select");
+    districtSort.innerHTML = `
+      <option value="">Sort by District</option>
+      <option value="asc">District (A to Z)</option>
+      <option value="desc">District (Z to A)</option>
+    `;
+
+    sortingContainer.appendChild(nameSort);
+    sortingContainer.appendChild(districtSort);
+    list.insertBefore(sortingContainer, addContainer);
+
+    // Add event listeners for sorting
+    nameSort.addEventListener('change', () => {
+      const sortOrder = nameSort.value;
+      if (sortOrder) {
+        const storeElements = Array.from(newUl.children);
+        storeElements.sort((a, b) => {
+          const nameA = a.querySelector('.store').innerText.toLowerCase();
+          const nameB = b.querySelector('.store').innerText.toLowerCase();
+          return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+        });
+        storeElements.forEach(element => newUl.appendChild(element));
+        districtSort.value = ''; // Reset district sort
+      }
+    });
+
+    districtSort.addEventListener('change', () => {
+      const sortOrder = districtSort.value;
+      if (sortOrder) {
+        const storeElements = Array.from(newUl.children);
+        storeElements.sort((a, b) => {
+          const districtA = a.querySelector('form input[name="district"]').value.toLowerCase();
+          const districtB = b.querySelector('form input[name="district"]').value.toLowerCase();
+          return sortOrder === 'asc' ? districtA.localeCompare(districtB) : districtB.localeCompare(districtA);
+        });
+        storeElements.forEach(element => newUl.appendChild(element));
+        nameSort.value = ''; // Reset name sort
+      }
+    });
 
     let newUl = document.createElement("div");
     newUl.setAttribute("class", "storeDiv");
