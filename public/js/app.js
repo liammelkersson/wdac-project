@@ -61,6 +61,35 @@ fetch("http://localhost:3000/api/stores")
       <button type="button" class="cancel">Cancel</button>
     `;
 
+    // Add these event listeners
+    addButton.addEventListener("click", () => {
+      addForm.style.display = "block";
+    });
+
+    addForm.querySelector(".cancel").addEventListener("click", () => {
+      addForm.style.display = "none";
+    });
+
+    addForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = {
+        name: addForm.name.value,
+        url: addForm.url.value,
+        district: addForm.district.value,
+      };
+
+      createStore(formData)
+        .then((newStore) => {
+          createStoreElement(newStore, newUl);
+          addForm.reset();
+          addForm.style.display = "none";
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to create store");
+        });
+    });
+
     addContainer.appendChild(addButton);
     addContainer.appendChild(addForm);
     list.appendChild(addContainer);
@@ -90,31 +119,39 @@ fetch("http://localhost:3000/api/stores")
     list.insertBefore(sortingContainer, addContainer);
 
     // sorting
-    nameSort.addEventListener('change', () => {
+    nameSort.addEventListener("change", () => {
       const sortOrder = nameSort.value;
       if (sortOrder) {
         const storeElements = Array.from(newUl.children);
         storeElements.sort((a, b) => {
-          const nameA = a.querySelector('.store').innerText.toLowerCase();
-          const nameB = b.querySelector('.store').innerText.toLowerCase();
-          return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+          const nameA = a.querySelector(".store").innerText.toLowerCase();
+          const nameB = b.querySelector(".store").innerText.toLowerCase();
+          return sortOrder === "asc"
+            ? nameA.localeCompare(nameB)
+            : nameB.localeCompare(nameA);
         });
-        storeElements.forEach(element => newUl.appendChild(element));
-        districtSort.value = ''; // resetting
+        storeElements.forEach((element) => newUl.appendChild(element));
+        districtSort.value = ""; // resetting
       }
     });
 
-    districtSort.addEventListener('change', () => {
+    districtSort.addEventListener("change", () => {
       const sortOrder = districtSort.value;
       if (sortOrder) {
         const storeElements = Array.from(newUl.children);
         storeElements.sort((a, b) => {
-          const districtA = a.querySelector('form input[name="district"]').value.toLowerCase();
-          const districtB = b.querySelector('form input[name="district"]').value.toLowerCase();
-          return sortOrder === 'asc' ? districtA.localeCompare(districtB) : districtB.localeCompare(districtA);
+          const districtA = a
+            .querySelector('form input[name="district"]')
+            .value.toLowerCase();
+          const districtB = b
+            .querySelector('form input[name="district"]')
+            .value.toLowerCase();
+          return sortOrder === "asc"
+            ? districtA.localeCompare(districtB)
+            : districtB.localeCompare(districtA);
         });
-        storeElements.forEach(element => newUl.appendChild(element));
-        nameSort.value = ''; // resetting
+        storeElements.forEach((element) => newUl.appendChild(element));
+        nameSort.value = ""; // resetting
       }
     });
 
@@ -140,7 +177,11 @@ function createStoreElement(shop, parentElement) {
   newLink.style.color = "inherit";
 
   let newLi = document.createElement("div");
-  newLi.innerHTML = `${shop.name}<br><span style="font-size: 0.8em; color: #666;">${shop.district || 'Other'}</span>`;
+  newLi.innerHTML = `${
+    shop.name
+  }<br><span style="font-size: 0.8em; color: #666;">${
+    shop.district || "Other"
+  }</span>`;
   newLi.setAttribute("class", "store");
 
   // create edit button
@@ -242,3 +283,4 @@ document.addEventListener("DOMContentLoaded", function () {
   // Listen for checkbox changes
   toggleSwitch.addEventListener("change", toggleButtons);
 });
+
