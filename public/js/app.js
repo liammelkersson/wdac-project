@@ -1,4 +1,4 @@
-// Function to handle store updates
+// function that handles store updates (EDIT)
 function updateStore(id, formData) {
   return fetch(`http://localhost:3000/api/stores/${id}`, {
     method: "PUT",
@@ -14,7 +14,7 @@ function updateStore(id, formData) {
   });
 }
 
-// Function to handle store creation
+// function that handles store creation (ADD)
 function createStore(formData) {
   return fetch("http://localhost:3000/api/stores", {
     method: "POST",
@@ -30,7 +30,7 @@ function createStore(formData) {
   });
 }
 
-// Fetch and display stores
+// fetches and displays stores
 fetch("http://localhost:3000/api/stores")
   .then((response) => {
     if (!response.ok) {
@@ -49,7 +49,7 @@ fetch("http://localhost:3000/api/stores")
     let addButton = document.createElement("button");
     addButton.innerText = "Add New Store";
     addButton.classList.add("add-store-btn");
-    addButton.style.display = "none"; // Initially hidden
+    addButton.style.display = "none"; // initially hidden
 
     let addForm = document.createElement("form");
     addForm.style.display = "none";
@@ -65,7 +65,7 @@ fetch("http://localhost:3000/api/stores")
     addContainer.appendChild(addForm);
     list.appendChild(addContainer);
 
-    // Create sorting controls
+    // sorting controls
     let sortingContainer = document.createElement("div");
     sortingContainer.style.marginBottom = "20px";
     sortingContainer.style.display = "flex";
@@ -89,7 +89,7 @@ fetch("http://localhost:3000/api/stores")
     sortingContainer.appendChild(districtSort);
     list.insertBefore(sortingContainer, addContainer);
 
-    // Add event listeners for sorting
+    // sorting
     nameSort.addEventListener('change', () => {
       const sortOrder = nameSort.value;
       if (sortOrder) {
@@ -100,7 +100,7 @@ fetch("http://localhost:3000/api/stores")
           return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
         });
         storeElements.forEach(element => newUl.appendChild(element));
-        districtSort.value = ''; // Reset district sort
+        districtSort.value = ''; // resetting
       }
     });
 
@@ -114,7 +114,7 @@ fetch("http://localhost:3000/api/stores")
           return sortOrder === 'asc' ? districtA.localeCompare(districtB) : districtB.localeCompare(districtA);
         });
         storeElements.forEach(element => newUl.appendChild(element));
-        nameSort.value = ''; // Reset name sort
+        nameSort.value = ''; // resetting
       }
     });
 
@@ -122,7 +122,7 @@ fetch("http://localhost:3000/api/stores")
     newUl.setAttribute("class", "storeDiv");
     list.appendChild(newUl);
 
-    // Create store elements
+    // creating store elements
     data.forEach((shop) => createStoreElement(shop, newUl));
   });
 
@@ -140,22 +140,22 @@ function createStoreElement(shop, parentElement) {
   newLink.style.color = "inherit";
 
   let newLi = document.createElement("div");
-  newLi.innerText = shop.name;
+  newLi.innerHTML = `${shop.name}<br><span style="font-size: 0.8em; color: #666;">${shop.district || 'Other'}</span>`;
   newLi.setAttribute("class", "store");
 
-  // Create edit button
+  // create edit button
   let editButton = document.createElement("button");
   editButton.innerText = "edit";
   editButton.classList.add("edit-store-btn");
-  editButton.style.display = "none"; // Initially hidden
+  editButton.style.display = "none";
 
-  // Create delete button
+  // create delete button
   let deleteButton = document.createElement("button");
   deleteButton.innerText = "delete";
   deleteButton.classList.add("delete-store-btn");
-  deleteButton.style.display = "none"; // Initially hidden
+  deleteButton.style.display = "none";
 
-  // Create edit form
+  // Edit form
   let editForm = document.createElement("form");
   editForm.style.display = "none";
   editForm.innerHTML = `

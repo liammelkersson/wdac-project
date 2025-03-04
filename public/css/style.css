@@ -1,6 +1,6 @@
 /* CSS Variables */
 :root {
-  --main-bg-color: rgba(255, 255, 255);
+  --main-bg-color: #f2f2f2;
   --main-text-color: rgb(0, 0, 0);
 }
 
@@ -37,7 +37,7 @@ nav {
 }
 
 #welcomeSection {
-  background-color: white;
+padding: 30px;
 }
 
 #welcomeSection h2 {
@@ -109,6 +109,9 @@ nav {
   text-align: center;
   padding-left: 2rem;
   padding-right: 2rem;
+
+  margin: 10px 10px;
+  border-radius: 20px;
 }
 
 #featuredStore1::before,
@@ -122,8 +125,7 @@ nav {
   height: 100%;
   background-color: rgba(128, 128, 128, 0.5);
   transition: opacity 0.3s ease;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  border-radius: 20px;
 }
 
 #featuredStore1:hover::before,
@@ -142,7 +144,7 @@ nav {
   #featuredStore2,
   #featuredStore3 {
     width: 100%;
-    height: 33.33vh; /* Each takes up 1/3 of the screen height */
+    height: 33.33vh;
   }
 }
 
@@ -167,14 +169,22 @@ h1 {
   padding-right: 10%;
 }
 
-.storesH2 {
+.featStoresH2 {
   text-align: center;
+  padding: 82px 0 82px 0;
+  margin-top: 0;
   font-size: 75px;
   background-image: url(../img/storesbackground.jpeg);
 }
 
+.storesH2 {
+  text-align: center;
+  font-size: 75px;
+}
+
 #listOfStores {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -192,15 +202,90 @@ h1 {
   border: 2px solid #fea729;
   border-radius: 25px;
   margin: 10px;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   color: #444444;
   width: 200px;
   height: 50px;
   text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  justify-content: space-between;
 }
+/* Featured Links Section */
+#featuredLinks {
+  padding: 2rem 0;
+  /* background-color: #f5f5f5; */
+}
+
+.featured-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.featured-link {
+  position: relative;
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.featured-link:hover {
+  transform: scale(1.05);
+}
+
+.stores-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cms.goteborg.com/uploads/2020/10/nordiska-kompaniet_0000__IMG4680-1-750x563.jpg');
+}
+
+.events-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoTlbabMhFxb7RKGKNJb5JmtLARmRzMWWJ-w&s');
+}
+
+.about-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://scontent-arn2-1.xx.fbcdn.net/v/t39.30808-6/472783081_1122412016345502_6009347187064672896_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=f727a1&_nc_ohc=wVnw2FUW3W0Q7kNvgG5SYhT&_nc_oc=AdhbPscps6dGWtOhllKVpTghu_V8bEzyl0WgPqTIdc0reuxcO6QcZh-c7fmqBAGOgYo&_nc_zt=23&_nc_ht=scontent-arn2-1.xx&_nc_gid=AlUcTEfGf3i43ieq3C9qAwl&oh=00_AYBWtWHWJ35AWlNRdThVowCFAtUUKAlDuge2jFjo-pteAA&oe=67CC7842');
+}
+
+.featured-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+}
+
+.featured-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+}
+
+.featured-content p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Responsive Design for Featured Links */
+@media (max-width: 768px) {
+  .featured-container {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-link {
+    height: 250px;
+  }
+}
+
 .footer {
   display: flex;
   width: 100%;
@@ -213,4 +298,11 @@ h1 {
 
 #toggleSwitch:checked ~ .switch {
   display: block;
+}
+
+
+.mapDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
