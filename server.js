@@ -29,6 +29,8 @@ app.get("/admin", (req, res) => {
     res.sendFile(__dirname + "/public/admin.html");
 });
 
+//========== REST API ==========
+// fetching stores
 app.get('/api/stores', async (req, res) => {
     try {
         const stores = await db.getAllStores();
@@ -77,7 +79,7 @@ app.post('/api/stores', async (req, res) => {
     }
 });
 
-// ========== RUNS SERVER & LISTENS ON PORT:  ==========
+// ========== RUNS SERVER & LISTENS ON PORT  ==========
 async function startServer() {
     try {
         await db.connect();
@@ -92,7 +94,7 @@ async function startServer() {
 }
 startServer();
 
-// Handle shutdown gracefully????
+// handles shutdown in a proper way
 process.on('SIGTERM', async () => {
     await db.disconnect();
     process.exit(0);
